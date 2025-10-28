@@ -37,6 +37,7 @@ const httpClient: HttpClientInstance = AsgardeoSPAClient.getInstance()
  * @param roleId - role id to retrieve role details
  */
 export const getRoleById = (roleId: string): Promise<any> => {
+    console.log(store.getState().config.endpoints.roles + "/" + roleId);
     const requestConfig: AxiosRequestConfig = {
         headers: {
             "Access-Control-Allow-Origin": store.getState().config.deployment.clientHost,
@@ -48,6 +49,7 @@ export const getRoleById = (roleId: string): Promise<any> => {
 
     return httpClient(requestConfig)
         .then((response: AxiosResponse) => {
+            console.log("getRoleById response:", response);
             return Promise.resolve(response);
         }).catch((error: AxiosError) => {
             return Promise.reject(error);

@@ -189,6 +189,7 @@ export const useGetRoleById = <Data = RolesInterface, Error = RequestErrorInterf
         method: HttpMethods.GET,
         url: `${store.getState().config.endpoints.rolesV2}/${roleId}`
     };
+    console.log("useGetRoleById - requestConfig:", requestConfig);
 
     const {
         data,

@@ -86,6 +86,7 @@ export const RoleUsersList: FunctionComponent<RoleUsersPropsInterface> = (
         isPrivilegedUsersToggleVisible = false,
         [ "data-componentid" ]: componentId = "edit-role-users"
     } = props;
+    console.log("Role: ",role);
 
     const { t } = useTranslation();
     const dispatch: Dispatch = useDispatch();
@@ -625,7 +626,14 @@ export const RoleUsersList: FunctionComponent<RoleUsersPropsInterface> = (
         const actions: TableActionsInterface[] = [
             {
                 "data-componentid": `${ componentId }-list-item-delete-button`,
-                hidden: (): boolean => isReadOnlyView,
+                hidden: (): boolean => {
+                    const hasSharedRoleProperty: boolean = role?.properties?.some(
+                        (property: { name: string; value: string }) =>
+                            property.name === "isSharedRole" && property.value === "true"
+                    );
+
+                    return isReadOnlyView;
+                },
                 icon: (): SemanticICONS =>  "trash alternate",
                 onClick: (e: SyntheticEvent, user: UserBasicInterface): void =>
                     unassignUserFromRole(user),
